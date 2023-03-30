@@ -2,6 +2,7 @@
   "name": "nutrients",
   "version": "3.1.0",
   "title": "Tokyo NextJS Typescript Admin Dashboard",
+  "homepage": ".",
   "description": "Production-ready updated admin dashboard powered by React and MUI (Material-UI) built on NextJS features hundreds of components and examples that will help you build faster and better apps.",
   "author": {
     "name": "BloomUI.com",
