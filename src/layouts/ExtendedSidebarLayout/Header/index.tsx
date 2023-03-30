@@ -63,7 +63,7 @@ function Header() {
               )}`
       }}
     >
-      <Stack
+      {/* <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem />}
         alignItems="center"
@@ -71,11 +71,11 @@ function Header() {
       >
         <HeaderSearch />
         <HeaderMenu />
-      </Stack>
+      </Stack> */}
       <Box display="flex" alignItems="center">
-        <HeaderButtons />
+        {/* <HeaderButtons /> */}
         <HeaderUserbox />
-        <Box
+        {/* <Box
           component="span"
           sx={{
             ml: 2,
@@ -91,7 +91,7 @@ function Header() {
               )}
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
       </Box>
     </HeaderWrapper>
   );

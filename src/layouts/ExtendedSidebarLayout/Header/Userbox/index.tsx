@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from 'src/hooks/useAuth';
 import { useRouter } from 'next/router';
 
@@ -24,6 +24,7 @@ import { Chart } from 'src/components/Chart';
 import type { ApexOptions } from 'apexcharts';
 import Text from 'src/components/Text';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
+import { login, logout, onUserStateChange } from "@/api/firebase";
 
 const DotLegend = styled('span')(
   ({ theme }) => `
@@ -118,14 +119,15 @@ function HeaderUserbox() {
 
   const { logout } = useAuth();
 
-  const user = {
-    avatar: '/static/images/avatars/1.jpg',
+  const userOrigin = {
+    avatar: '',
     name: 'Rachael Simons',
     jobtitle: 'Lead Developer'
   };
 
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
+  const [user, setUser] = useState();
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -135,7 +137,7 @@ function HeaderUserbox() {
     setOpen(false);
   };
 
-  const handleLogout = async (): Promise<void> => {
+  const handleLogoutOrigin = async (): Promise<void> => {
     try {
       handleClose();
       await logout();
@@ -212,11 +214,25 @@ function HeaderUserbox() {
       data: [465, 546, 234, 576, 554, 338, 427, 348, 586, 254, 348]
     }
   ];
+  
+  const handleLogin = () => {
+    login().then(setUser); //로그인이 된다면 user를 지정해줌
+  }
+  const handleLogout = () => {
+    logout().then(setUser);
+  }
+  useEffect(() => {
+    onUserStateChange((user) => { // 로그인 되어있다면 사용자의 정보 전달해서 setUser 업데이트
+      console.log(user);
+      setUser(user);
+    });
+  }, []);
 
   return (
     <>
-      <UserBoxButton color="primary" ref={ref} onClick={handleOpen}>
-        <UserAvatar alt={user.name} src={user.avatar} />
+      {/* <UserBoxButton color="primary" ref={ref} onClick={handleOpen}> */}
+      <UserBoxButton color="primary" ref={ref} onClick={handleLogin}>
+        <UserAvatar alt={userOrigin.name} src={userOrigin.avatar} />
       </UserBoxButton>
       <Popover
         disableScrollLock
@@ -238,11 +254,11 @@ function HeaderUserbox() {
           }}
           display="flex"
         >
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          <Avatar variant="rounded" alt={userOrigin.name} src={userOrigin.avatar} />
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userOrigin.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userOrigin.jobtitle}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>
@@ -325,6 +341,7 @@ function HeaderUserbox() {
         </Box>
         <Divider />
         <Box m={1}>
+          {/* <Button color="primary" fullWidth onClick={handleLogoutOrigin}> */}
           <Button color="primary" fullWidth onClick={handleLogout}>
             <LockOpenTwoToneIcon
               sx={{

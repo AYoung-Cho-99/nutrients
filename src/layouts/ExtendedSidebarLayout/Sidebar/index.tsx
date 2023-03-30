@@ -37,7 +37,7 @@ function Sidebar() {
 
   return (
     <>
-      <SidebarWrapper
+      {/* <SidebarWrapper
         sx={{
           display: {
             xs: 'none',
@@ -137,7 +137,7 @@ function Sidebar() {
           </Scrollbar>
           <SidebarFooter />
         </SidebarWrapper>
-      </Drawer>
+      </Drawer> */}
     </>
   );
 }

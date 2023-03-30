@@ -1,4 +1,5 @@
 export interface APIReturnType<T = any> {
+  I2790: any;
   code: string;
   message?: string;
   data?: T;

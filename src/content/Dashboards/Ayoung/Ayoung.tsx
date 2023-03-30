@@ -37,6 +37,7 @@ function Ayoung() {
   const actionRef1 = useRef<any>(null);
   const [openPeriod, setOpenMenuPeriod] = useState<boolean>(false);
   const theme = useTheme();
+  const { data: foodData } = useEventInfo('D000008');
 
   const periods = [
     {
@@ -59,11 +60,11 @@ function Ayoung() {
 
   const [period, setPeriod] = useState<string>(periods[2].text);
 
-  const data = {
-    daily: '$142.21',
-    weekly: '$529.83',
-    monthly: '$7,153.61'
-  };
+  // const data = {
+  //   daily: '$142.21',
+  //   weekly: '$529.83',
+  //   monthly: '$7,153.61'
+  // };
 
   const expenses = {
     datasets: [
@@ -78,11 +79,10 @@ function Ayoung() {
       }
     ],
     labels: [
-      t('Bills'),
-      t('Health'),
-      t('Education'),
-      t('Entertainment'),
-      t('Others')
+      t('칼로리'),
+      t('당'),
+      t('단백질'),
+      t('탄수화물'),
     ]
   };
 
@@ -111,7 +111,7 @@ function Ayoung() {
     dataLabels: {
       enabled: true,
       formatter: function (val) {
-        return val + '%';
+        return val + 'kcal';
       },
       dropShadow: {
         enabled: true,
@@ -140,9 +140,8 @@ function Ayoung() {
     }
   };
 
-  const chartSeries = [15, 45, 25, 15];
 
-  const { data: foodData } = useEventInfo('D000007');
+  const chartSeries = [parseInt(foodData?.I2790?.row[0]?.NUTR_CONT1), parseInt(foodData?.I2790?.row[0]?.NUTR_CONT5), parseInt(foodData?.I2790?.row[0]?.NUTR_CONT7), parseInt(foodData?.I2790?.row[0]?.NUTR_CONT3)]
 
   console.log(foodData);
   
@@ -150,7 +149,7 @@ function Ayoung() {
   return (
     
     <CardContent>
-    <Box
+    {/* <Box
       sx={{
         px: { lg: 4 },
         pt: 2,
@@ -185,7 +184,7 @@ function Ayoung() {
       sx={{
         mb: 3
       }}
-    />
+    /> */}
     <Button
       size="small"
       variant="outlined"
@@ -262,7 +261,7 @@ function Ayoung() {
                   color: `${expenses.datasets[0].backgroundColor[i]}`
                 }}
               >
-                {chartSeries[i]}%
+                {chartSeries[i]}kcal
               </span>
               {label}
             </Typography>

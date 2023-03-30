@@ -13,7 +13,7 @@ class ApiClient {
 
     this.api = Axios.create({
       // baseURL: 
-      baseURL: `http://openapi.foodsafetykorea.go.kr/api/76c96a42df6b41f396f6/I2790/json/1/20/FOOD_CD=${params}`,
+      baseURL: `https://cors-anywhere.herokuapp.com/http://openapi.foodsafetykorea.go.kr/api/76c96a42df6b41f396f6/I2790/json/1/20/FOOD_CD=${params}`,
       headers: {
         Accept: "application/json; charset=utf-8",
         "Content-Type": this.option?.contentType,
