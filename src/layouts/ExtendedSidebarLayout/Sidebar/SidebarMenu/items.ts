@@ -102,6 +102,10 @@ const menuItems: MenuItems[] = [
             link: '/dashboards/analytics'
           },
           {
+            name: 'AYYYYYYYYYYYYYYY',
+            link: '/dashboards/ayoung'
+          },
+          {
             name: 'Banking',
             link: '/dashboards/banking'
           },
